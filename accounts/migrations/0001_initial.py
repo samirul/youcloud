@@ -11,8 +11,21 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name="YtMusicFiles",
+            name="User",
             fields=[
+                ("password", models.CharField(max_length=128, verbose_name="password")),
+                (
+                    "last_login",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="last login"
+                    ),
+                ),
+                (
+                    "email",
+                    models.EmailField(
+                        max_length=255, unique=True, verbose_name="Email"
+                    ),
+                ),
                 (
                     "id",
                     models.UUIDField(
@@ -22,10 +35,11 @@ class Migration(migrations.Migration):
                         serialize=False,
                     ),
                 ),
+                ("username", models.CharField(max_length=100, unique=True)),
+                ("is_active", models.BooleanField(default=False)),
+                ("is_admin", models.BooleanField(default=False)),
                 ("created_at", models.DateTimeField(auto_now_add=True)),
                 ("updated_at", models.DateTimeField(auto_now=True)),
-                ("downloaded_url_video_link", models.CharField(max_length=255)),
-                ("downloaded_music_files", models.FileField(upload_to="youtube_files")),
             ],
             options={
                 "abstract": False,

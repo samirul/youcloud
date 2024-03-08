@@ -3,19 +3,28 @@ from rest_framework.response import Response
 from rest_framework import status
 from celery.result import AsyncResult
 
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
+
+
+from rest_framework import status
+
 from api.models import YtMusicFiles
 from api.tasks import DownloadYtMusicMp3Task
 
 from .serializers import GetAudioFilesSerializer, GetURLDownloadFileSerializer
 
-
 class GetURLDownloadFileViews(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     def post(self, request):
         serializer = GetURLDownloadFileSerializer(data=request.data)
         if serializer.is_valid():
             try:
                 get_link = request.data.get('downloaded_url_video_link')
                 downloadmp3 = DownloadYtMusicMp3Task.delay(get_link)
+                print(request.user)
                 return Response({'msg': 'File downloaded successfully', 'download_id': downloadmp3.id }, status=status.HTTP_200_OK)
             except Exception as e:
                 return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -34,6 +43,8 @@ class GetURLDownloadFileViews(APIView):
             return Response({'status': 'Downloading Progress..', 'progress': task_result.info})
         
 class GetAudioFiles(APIView):
+    # permission_classes = [IsAuthenticated]
+    # @method_decorator(login_required)
     def get(self, request):
         try:
             audio_files = YtMusicFiles.objects.all()
