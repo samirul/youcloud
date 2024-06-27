@@ -41,6 +41,8 @@ APPS = [
 
 THIRD_PARTY_APPS = [
     "rest_framework",
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
     "rest_framework.authtoken",
     "corsheaders",
     "django.contrib.sites",
@@ -107,8 +109,8 @@ MIDDLEWARE = [
 ROOT_URLCONF = "youcloud.urls"
 
 SITE_ID = 1
-# REST_USE_JWT = True #  For Using Json Web Token
-# USE_JWT = True #  For Using Json Web Token
+REST_USE_JWT = True #  For Using Json Web Token
+USE_JWT = True #  For Using Json Web Token
 
 TEMPLATES = [
     {
@@ -205,15 +207,31 @@ CELERY_RESULT_BACKEND = 'django-db'
 # Simple JWT
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=900),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
-    "ROTATE_REFRESH_TOKENS": False,
-    "BLACKLIST_AFTER_ROTATION": False,
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
     "UPDATE_LAST_LOGIN": False,
 
+    'ALGORITHM': 'HS256',
     "SIGNING_KEY": os.environ.get('DJANGO_SIGNING_KEY'),
     "USER_ID_FIELD": "id",
     "USER_ID_CLAIM": "user_id",
+    'VERIFYING_KEY': None,
+    'AUDIENCE': None,
+    'ISSUER': None,
+    'JWK_URL': None,
+    'LEEWAY': 0,
+
+
+    'USER_AUTHENTICATION_RULE': 'rest_framework_simplejwt.authentication.default_user_authentication_rule',
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+    'TOKEN_USER_CLASS': 'rest_framework_simplejwt.models.TokenUser',
+
+    'JTI_CLAIM': 'jti',
 }
 
 # authentication classes
@@ -236,7 +254,7 @@ SIMPLE_JWT = {
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        "rest_framework.authentication.TokenAuthentication",
+        # "rest_framework.authentication.TokenAuthentication",
         "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
     )
     
@@ -252,5 +270,18 @@ REST_AUTH_SERIALIZERS = {
 # ACCOUNT_UNIQUE_EMAIL = True
 # ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
+# # SOCIALACCOUNT_STORE_TOKENS = True
+
+# # # # SOCIALACCOUNT_ONLY = True
+
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
+
+
+REST_AUTH = {
+    'USE_JWT': True,
+    # # 'SESSION_LOGIN': True,
+    'JWT_AUTH_HTTPONLY':False,
+    'JWT_AUTH_COOKIE': 'access',
+    'JWT_AUTH_REFRESH_COOKIE': 'refresh',
+} 

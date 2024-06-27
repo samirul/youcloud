@@ -22,10 +22,10 @@ class UserModelSerializer(serializers.ModelSerializer):
 
         return user
     
-class TokenSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Token
-        fields = [ 'created', 'key', 'user', 'user_id']
+# class TokenSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Token
+#         fields = [ 'created', 'key', 'user', 'user_id']
 
 
         # def validate(self, attrs):
@@ -33,3 +33,9 @@ class TokenSerializer(serializers.ModelSerializer):
         #     print(get_user.username)
 
         #     return attrs
+
+
+class GetUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["id", "username", "email"]

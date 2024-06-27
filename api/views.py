@@ -6,7 +6,7 @@ from celery.result import AsyncResult
 
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.authentication import TokenAuthentication
+# from rest_framework.authentication import TokenAuthentication
 
 
 from rest_framework import status
@@ -17,7 +17,7 @@ from api.tasks import DownloadYtMusicMp3Task
 from .serializers import GetAudioFilesSerializer, GetURLDownloadFileSerializer
 
 class GetURLDownloadFileViews(APIView):
-    authentication_classes = [TokenAuthentication]
+    # authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     def post(self, request):
         user_id = request.user.id
@@ -45,7 +45,7 @@ class GetURLDownloadFileViews(APIView):
             return Response({'status': 'Downloading Progress..', 'progress': task_result.info})
         
 class GetAudioFiles(APIView):
-    authentication_classes = [TokenAuthentication]
+    # authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     def get(self, request):
         try:
@@ -54,3 +54,23 @@ class GetAudioFiles(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception:
             return Response({'errors': 'No downloaded content.'}, status=status.HTTP_204_NO_CONTENT)
+
+
+class DeleteAudioFiles(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request, pk):
+        try:
+            audio_files = YtMusicFiles.objects.filter(created_by=request.user, id=pk)
+            try:
+                for audio in audio_files:
+                    path = os.path.join(f"media\youtube_files\{audio.downloaded_music_title}.mp3")
+                    os.remove(path)
+                audio_files.delete()
+            except OSError:
+                print("Error!")
+
+                    
+            return Response(status=status.HTTP_200_OK)
+        except Exception:
+          return Response({'errors': 'No downloaded content.'}, status=status.HTTP_204_NO_CONTENT)  
+# https://testdriven.io/blog/django-rest-auth/
