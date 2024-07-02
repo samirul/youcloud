@@ -1,14 +1,18 @@
+import requests
 from rest_framework import serializers
-
+from django.core.files.base import ContentFile
 from accounts.models import User
-
 from rest_framework.authtoken.models import Token
+from allauth.socialaccount.models import SocialAccount
 
 
 class UserModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id", "username", "email", "password"]
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
 
 
     def create(self, validated_data):
@@ -18,22 +22,8 @@ class UserModelSerializer(serializers.ModelSerializer):
             password = validated_data['password']
         )
 
-        print(user)
-
         return user
     
-# class TokenSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Token
-#         fields = [ 'created', 'key', 'user', 'user_id']
-
-
-        # def validate(self, attrs):
-        #     get_user = attrs('user')
-        #     print(get_user.username)
-
-        #     return attrs
-
 
 class GetUserSerializer(serializers.ModelSerializer):
     class Meta:

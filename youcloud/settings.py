@@ -75,24 +75,6 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-# LOGGING = {
-#    'version': 1,
-#    'disable_existing_loggers': False,
-#    'handlers': {
-#       'file': {
-#          'level': 'DEBUG',
-#          'class': 'logging.FileHandler',
-#          'filename': '/tmp/debug.log',
-#       },
-#    },
-#    'loggers': {
-#       'django': {
-#          'handlers': ['file'],
-#          'level': 'DEBUG',
-#          'propagate': True,
-#       },
-#    },
-# }
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -110,7 +92,7 @@ ROOT_URLCONF = "youcloud.urls"
 
 SITE_ID = 1
 REST_USE_JWT = True #  For Using Json Web Token
-USE_JWT = True #  For Using Json Web Token
+
 
 TEMPLATES = [
     {
@@ -173,11 +155,11 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:5173",
-# ]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+]
 
-CORS_ORIGIN_ALLOW_ALL = True
+
 
 # Default primary key field type
 
@@ -234,6 +216,68 @@ SIMPLE_JWT = {
     'JTI_CLAIM': 'jti',
 }
 
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
+    )
+    
+}
+
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'accounts.serializers.UserModelSerializer'
+}
+
+
+
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
+
+
+REST_AUTH = {
+    'USE_JWT': True,
+    'JWT_AUTH_HTTPONLY':False,
+    'JWT_AUTH_COOKIE': 'access',
+    'JWT_AUTH_REFRESH_COOKIE': 'refresh',
+} 
+
+# AUTHENTICATION_BACKENDS = (
+#     'allauth.account.auth_backends.AuthenticationBackend',
+# )
+
+# ACCOUNT_AUTHENTICATION_METHOD = "email"
+# ACCOUNT_USERNAME_REQUIRED = False
+# ACCOUNT_LOGOUT_ON_GET = True
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_UNIQUE_EMAIL = True
+# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+# ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = "http://localhost:5173/"
+# # SOCIALACCOUNT_STORE_TOKENS = True
+
+# # # # SOCIALACCOUNT_ONLY = True
+
+
+# REST_AUTH = {
+#     'USE_JWT': True,
+#     # # 'SESSION_LOGIN': True,
+#     'JWT_AUTH_HTTPONLY':False,
+#     'JWT_AUTH_COOKIE': 'access',
+#     'JWT_AUTH_REFRESH_COOKIE': 'refresh',
+# } 
+
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#         # "rest_framework.authentication.TokenAuthentication",
+#         "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
+#     )
+    
+# }
+
+
 # authentication classes
 
 # REST_FRAMEWORK = {
@@ -251,37 +295,29 @@ SIMPLE_JWT = {
 
 # }
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-        # "rest_framework.authentication.TokenAuthentication",
-        "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
-    )
-    
-}
+# CORS_ORIGIN_ALLOW_ALL = True
 
-REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'accounts.serializers.UserModelSerializer'
-}
-
-# ACCOUNT_AUTHENTICATION_METHOD = "email"
-# ACCOUNT_LOGOUT_ON_GET = True
-# ACCOUNT_EMAIL_REQUIRED = True
-# ACCOUNT_UNIQUE_EMAIL = True
-# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-
-# # SOCIALACCOUNT_STORE_TOKENS = True
-
-# # # # SOCIALACCOUNT_ONLY = True
+# SITE_ID = 1
+# REST_USE_JWT = True #  For Using Json Web Token
+# USE_JWT = True #  For Using Json Web Token
 
 
-SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
 
-
-REST_AUTH = {
-    'USE_JWT': True,
-    # # 'SESSION_LOGIN': True,
-    'JWT_AUTH_HTTPONLY':False,
-    'JWT_AUTH_COOKIE': 'access',
-    'JWT_AUTH_REFRESH_COOKIE': 'refresh',
-} 
+# LOGGING = {
+#    'version': 1,
+#    'disable_existing_loggers': False,
+#    'handlers': {
+#       'file': {
+#          'level': 'DEBUG',
+#          'class': 'logging.FileHandler',
+#          'filename': '/tmp/debug.log',
+#       },
+#    },
+#    'loggers': {
+#       'django': {
+#          'handlers': ['file'],
+#          'level': 'DEBUG',
+#          'propagate': True,
+#       },
+#    },
+# }
