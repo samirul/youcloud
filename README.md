@@ -10,4 +10,4 @@ FrontEnd - Reactjs + Vite.
 Backend - Django Rest Framework(DRF), Celery Worker, Postgresql.
 
 
-<a href ="https://github.com/samirul/youcloud-react">You-cloud<a/>
+<a href ="https://github.com/samirul/youcloud-react">You-cloud-React-js-Frontend<a/>
