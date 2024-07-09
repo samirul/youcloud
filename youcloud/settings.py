@@ -226,9 +226,7 @@ REST_FRAMEWORK = {
     
 }
 
-REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'accounts.serializers.UserModelSerializer'
-}
+
 
 
 
@@ -320,4 +318,8 @@ REST_AUTH = {
 #          'propagate': True,
 #       },
 #    },
+# }
+
+# REST_AUTH_SERIALIZERS = {
+#     'USER_DETAILS_SERIALIZER': 'accounts.serializers.UserModelSerializer'
 # }
