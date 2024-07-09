@@ -78,11 +78,12 @@ class User(AbstractBaseUser):
 @receiver(user_logged_in, sender=User) 
 def save_google_profile_image(sender, request, user, **kwargs):
     social_account = user.socialaccount_set.filter(provider='google').first()
+    pic = User.objects.get(email=user)
     if social_account:
         extra_data = social_account.extra_data
         profile_image_url = extra_data.get('picture')
         
-        if profile_image_url:
+        if profile_image_url and pic.profilePic =='default.png':
             response = requests.get(profile_image_url, timeout=5)
             if response.status_code == 200:
                 user.profilePic.save(
