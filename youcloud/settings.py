@@ -241,6 +241,8 @@ REST_AUTH = {
     'JWT_AUTH_REFRESH_COOKIE': 'refresh',
 } 
 
+SOCIALACCOUNT_ADAPTER = 'accounts.adapters.SocialAccountAdapter'
+
 # AUTHENTICATION_BACKENDS = (
 #     'allauth.account.auth_backends.AuthenticationBackend',
 # )
