@@ -50,7 +50,7 @@ class GetAudioFiles(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
         try:
-            audio_files = YtMusicFiles.objects.filter(created_by=request.user)
+            audio_files = YtMusicFiles.objects.select_related('created_by').filter(created_by=request.user)
             serializer = GetAudioFilesSerializer(instance=audio_files, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception:
@@ -61,7 +61,7 @@ class DeleteAudioFiles(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request, pk):
         try:
-            audio_files = YtMusicFiles.objects.filter(created_by=request.user, id=pk)
+            audio_files = YtMusicFiles.objects.select_related('created_by').filter(created_by=request.user, id=pk)
             try:
                 for audio in audio_files:
                     if audio:
