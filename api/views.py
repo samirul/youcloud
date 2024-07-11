@@ -6,7 +6,7 @@ from celery.result import AsyncResult
 
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from clean_text.clean_text_filter import remove_special_characters
+# from clean_text.clean_text_filter import remove_special_characters
 # from rest_framework.authentication import TokenAuthentication
 
 
@@ -64,7 +64,8 @@ class DeleteAudioFiles(APIView):
             audio_files = YtMusicFiles.objects.filter(created_by=request.user, id=pk)
             try:
                 for audio in audio_files:
-                    path = os.path.join(f"media\youtube_files\{remove_special_characters(audio.downloaded_music_title)}.mp3")
+                    path = os.path.join(f"media\youtube_files\{audio.downloaded_music_title}.mp3")
+                    print(path)
                     os.remove(path)
                 audio_files.delete()
             except OSError:

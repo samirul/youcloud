@@ -1,6 +1,4 @@
 import os
-import time
-from django.http import JsonResponse
 from celery import shared_task, current_task
 from pydub import AudioSegment
 from pytube import YouTube
@@ -13,7 +11,6 @@ def DownloadYtMusicMp3Task(self, user_id, link):
     try:
         current_task.update_state(state='PROGRESS', meta={'progress': 0})
         get_link = link
-        print(get_link)
         yt = YouTube(get_link)
         video = yt.streams.filter(only_audio=True).first()
         path_dir = "media/youtube_files"
