@@ -6,7 +6,6 @@ from celery.result import AsyncResult
 
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-# from clean_text.clean_text_filter import remove_special_characters
 # from rest_framework.authentication import TokenAuthentication
 
 
@@ -26,6 +25,7 @@ class GetURLDownloadFileViews(APIView):
         if serializer.is_valid():
             try:
                 get_link = request.data.get('downloaded_url_video_link')
+                print(get_link)
                 downloadmp3 = DownloadYtMusicMp3Task.delay(user_id, get_link)
                 return Response({'msg': 'File downloaded successfully', 'download_id': downloadmp3.id }, status=status.HTTP_200_OK)
             except Exception as e:
@@ -64,12 +64,12 @@ class DeleteAudioFiles(APIView):
             audio_files = YtMusicFiles.objects.filter(created_by=request.user, id=pk)
             try:
                 for audio in audio_files:
-                    path = os.path.join(f"media\youtube_files\{audio.downloaded_music_title}.mp3")
-                    print(path)
-                    os.remove(path)
-                audio_files.delete()
+                    if audio:
+                        path = os.path.join(f"media\youtube_files\{audio.downloaded_music_title}.mp3")
+                        os.remove(path)
             except OSError:
-                print("Error!")
+                pass
+            audio_files.delete()
 
                     
             return Response(status=status.HTTP_200_OK)

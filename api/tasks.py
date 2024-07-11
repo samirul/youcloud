@@ -5,6 +5,7 @@ from pytube import YouTube
 
 from accounts.models import User
 from .models import YtMusicFiles
+from clean_text.clean_text_filter import remove_special_characters
 
 @shared_task(bind=True)
 def DownloadYtMusicMp3Task(self, user_id, link):
@@ -14,7 +15,9 @@ def DownloadYtMusicMp3Task(self, user_id, link):
         yt = YouTube(get_link)
         video = yt.streams.filter(only_audio=True).first()
         path_dir = "media/youtube_files"
-        downloaded_file = video.download(output_path=path_dir)
+        title_ = remove_special_characters(yt.title).split()
+        title = "-".join(title_)
+        downloaded_file = video.download(output_path=path_dir, filename=title)
         base, _ = os.path.splitext(downloaded_file)
 
         audio = AudioSegment.from_file(downloaded_file)
@@ -23,7 +26,7 @@ def DownloadYtMusicMp3Task(self, user_id, link):
 
         user = User.objects.get(id=user_id)
 
-        YtMusicFiles.objects.create(created_by=user, downloaded_url_video_link=get_link, downloaded_music_title=yt.title, downloaded_music_files=new_file)
+        YtMusicFiles.objects.create(created_by=user, downloaded_url_video_link=get_link, downloaded_music_title=title, downloaded_music_files=new_file)
 
         os.remove(downloaded_file)
 
