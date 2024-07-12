@@ -25,7 +25,6 @@ class GetURLDownloadFileViews(APIView):
         if serializer.is_valid():
             try:
                 get_link = request.data.get('downloaded_url_video_link')
-                print(get_link)
                 downloadmp3 = DownloadYtMusicMp3Task.delay(user_id, get_link)
                 return Response({'msg': 'File downloaded successfully', 'download_id': downloadmp3.id }, status=status.HTTP_200_OK)
             except Exception as e:
