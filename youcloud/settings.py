@@ -65,6 +65,11 @@ INSTALLED_APPS += THIRD_PARTY_APPS
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
+        "APP": {
+            "client_id": os.getenv("GOOGLE_SOCIAL_LOGIN_CLIENT_ID"),
+            "secret": os.getenv("GOOGLE_SOCIAL_LOGIN_SECRET_KEY"),
+            "key": ""
+        },
         'SCOPE': [
             'profile',
             'email',
