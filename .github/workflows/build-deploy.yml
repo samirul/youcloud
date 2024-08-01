@@ -26,6 +26,7 @@ jobs:
       postgres:
         image: postgres
         env:
+          POSTGRES_USER: ${{secrets.YOUCLOUD_DATABASE_USER}}
           POSTGRES_PASSWORD: ${{secrets.YOUCLOUD_DATABASE_PASSWORD}}
           POSTGRES_DB: ${{secrets.YOUCLOUD_DATABASE_NAME}}
         ports:
@@ -41,7 +42,7 @@ jobs:
     steps:
       - name: pulling codes from repository
         uses: actions/checkout@v4.1.6
-        
+
       - name: Install python
         uses: actions/setup-python@v5.1.0
         with:
@@ -62,6 +63,13 @@ jobs:
       - name: Install all the dependencies from requirements.txt
         run: pip install -r requirements.txt
 
+      - name: Copy Fixed Version cipher.py
+        run: |
+          cd /opt/hostedtoolcache/Python/3.11.4/x64/lib/python3.11/site-packages/pytube
+          ls -a
+          cp /home/runner/work/youcloud/youcloud/cipher.py /opt/hostedtoolcache/Python/3.11.4/x64/lib/python3.11/site-packages/pytube/
+          ls -a 
+      
       - name: Automate test codes with pytest
         run: |
           pip install pytest
