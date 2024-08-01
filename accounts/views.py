@@ -11,57 +11,22 @@ from accounts.serializers import GetUserSerializer
 
 
 class GoogleLoginViews(SocialLoginView):
+    '''
+        Added Google Login Views for login with google with dj_rest_auth and all auth
+    '''
     adapter_class = GoogleOAuth2Adapter
     callback_url = "http://localhost:5173"
     client_class = OAuth2Client
 
 class GetUser(APIView):
+    '''
+        For fetching user or user information after login user 
+    '''
     permission_classes = [IsAuthenticated]
     def get(self, request):
+        '''
+            will send GET request from frontend reactjs
+        '''
         serializer = GetUserSerializer(request.user)
         return Response({'user': serializer.data}, status=status.HTTP_200_OK)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# from accounts.serializers import TokenSerializer
-# from rest_framework.authentication import TokenAuthentication
-# from allauth.socialaccount.models import SocialAccount
-# from rest_framework.authtoken.models import Token
-# from accounts.models import User
-
-
-
-# class GoogleLoginViews(SocialLoginView):
-    # adapter_class = GoogleOAuth2Adapter
-    # callback_url = "http://localhost:5173/api/auth/callback/google"
-    # client_class = OAuth2Client
-
-    # def post(self, request, *args, **kwargs):
-    #     request.data["id_token"] = request.data.get("access_token")
-    #     print(request.data)
-    #     return super().post(request, *args, **kwargs)
     
-    # def get(self, request, token):
-    #     user = User.objects.filter(username=request.user)
-    #     print(request.user)
-    #     return Response({'msg': 'token is', 'username': user}, status=status.HTTP_200_OK)
-    # def get(self, request, token):
-    #     token_key = Token.objects.filter(key=token)
-    #     for user_ in token_key:
-    #         serializer = TokenSerializer(instance=user_)
-    #         user = User.objects.get(id=serializer.data['user'])
-    #         return Response({'msg': 'token is', 'username': user.username, 'userToken': serializer.data['key']}, status=status.HTTP_200_OK)
-    #     return Response({'msg': 'unknown'}, status=status.HTTP_400_BAD_REQUEST)

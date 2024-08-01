@@ -30,8 +30,9 @@ def DownloadYtMusicMp3Task(self, user_id, link):
 
         os.remove(downloaded_file)
 
-        current_task.update_state(state='PROGRESS', meta={'progress': 100})
+        current_task.update_state(state='SUCCESS', meta={'progress': 100})
 
         return 'success'
     except Exception as e:
+        current_task.update_state(state='FAILURE', meta={'progress': 0, 'error': str(e)})
         print(f"Something is Wrong: {e}")

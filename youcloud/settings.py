@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
-from database.database import DATABASES # imported database # pylint: disable=unused-import
+from database.database import DATABASES  # imported database # pylint: disable=unused-import
 
 
 load_dotenv()
@@ -191,6 +191,8 @@ CELERY_TIMEZONE = os.environ.get('CELERY_TIMEZONE_PLACE')
 
 CELERY_RESULT_BACKEND = 'django-db'
 
+CELERY_TASK_ALWAYS_EAGER = True
+
 # Simple JWT
 
 SIMPLE_JWT = {
@@ -232,10 +234,6 @@ REST_FRAMEWORK = {
 }
 
 
-
-
-
-
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
 
 
@@ -244,89 +242,22 @@ REST_AUTH = {
     'JWT_AUTH_HTTPONLY':False,
     'JWT_AUTH_COOKIE': 'access',
     'JWT_AUTH_REFRESH_COOKIE': 'refresh',
+    'LOGIN_SERIALIZER': 'dj_rest_auth.serializers.LoginSerializer',
 } 
 
 SOCIALACCOUNT_ADAPTER = 'accounts.adapters.SocialAccountAdapter'
 
-# AUTHENTICATION_BACKENDS = (
-#     'allauth.account.auth_backends.AuthenticationBackend',
-# )
 
-# ACCOUNT_AUTHENTICATION_METHOD = "email"
-# ACCOUNT_USERNAME_REQUIRED = False
-# ACCOUNT_LOGOUT_ON_GET = True
-# ACCOUNT_EMAIL_REQUIRED = True
-# ACCOUNT_UNIQUE_EMAIL = True
-# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-# ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = "http://localhost:5173/"
-# # SOCIALACCOUNT_STORE_TOKENS = True
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
+ACCOUNT_LOGOUT_ON_GET = True
 
-# # # # SOCIALACCOUNT_ONLY = True
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
-
-# REST_AUTH = {
-#     'USE_JWT': True,
-#     # # 'SESSION_LOGIN': True,
-#     'JWT_AUTH_HTTPONLY':False,
-#     'JWT_AUTH_COOKIE': 'access',
-#     'JWT_AUTH_REFRESH_COOKIE': 'refresh',
-# } 
-
-
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework_simplejwt.authentication.JWTAuthentication',
-#         # "rest_framework.authentication.TokenAuthentication",
-#         "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
-#     )
-    
-# }
-
-
-# authentication classes
-
-# REST_FRAMEWORK = {
-#     # 'DEFAULT_PERMISSION_CLASSES': (
-#     #     "rest_framework.permissions.IsAuthenticated",
-#     # ),
-
-#     "DEFAULT_AUTHENTICATION_CLASSES": (
-#         'rest_framework_simplejwt.authentication.JWTAuthentication',
-#         # "rest_framework.authentication.BasicAuthentication",
-#         # "rest_framework.authentication.SessionAuthentication",
-#         # "rest_framework.authentication.TokenAuthentication",
-#         "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
-#     )
-
-# }
-
-# CORS_ORIGIN_ALLOW_ALL = True
-
-# SITE_ID = 1
-# REST_USE_JWT = True #  For Using Json Web Token
-# USE_JWT = True #  For Using Json Web Token
-
-
-
-# LOGGING = {
-#    'version': 1,
-#    'disable_existing_loggers': False,
-#    'handlers': {
-#       'file': {
-#          'level': 'DEBUG',
-#          'class': 'logging.FileHandler',
-#          'filename': '/tmp/debug.log',
-#       },
-#    },
-#    'loggers': {
-#       'django': {
-#          'handlers': ['file'],
-#          'level': 'DEBUG',
-#          'propagate': True,
-#       },
-#    },
-# }
-
-# REST_AUTH_SERIALIZERS = {
-#     'USER_DETAILS_SERIALIZER': 'accounts.serializers.UserModelSerializer'
-# }
