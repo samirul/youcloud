@@ -49,7 +49,7 @@ jobs:
           python-version: '3.11.4'
 
       - name: Using redis
-        uses: zhulik/redis-action@1.1.0
+        uses: zhulik/redis-action@v1.1.0
         with:
           redis version: '5'
           number of databases: 100
