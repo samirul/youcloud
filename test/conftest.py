@@ -54,7 +54,6 @@ def get_user(login_user, client):
 def download_music(get_user, client):
     link = "https://youtu.be/_s7iMASihSQ?si=5JhdHQUulyEOOSdw"
     data = {"downloaded_url_video_link": link}
-
     response = client.post(reverse("download"), content_type='application/json', data=json.dumps(data))
     content = response.content.decode('utf-8')
     data = json.loads(content)

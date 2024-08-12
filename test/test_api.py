@@ -10,17 +10,13 @@ def test_GetURLDownloadFileViewsID(get_user, client):
     _, user_id = get_user
     link = "https://youtu.be/_s7iMASihSQ?si=5JhdHQUulyEOOSdw"
     data = {"downloaded_url_video_link": link}
-
     response = client.post(reverse("download"), content_type='application/json', data=json.dumps(data))
     content = response.content.decode('utf-8')
     data = json.loads(content)
     download_id = data['download_id']
-    print(response) # temp
-
     response_2 = client.get(reverse("download-musics-id", args=[download_id]), content_type='application/json')
     content_2 = response_2.content.decode('utf-8')
     data_2 = json.loads(content_2)
-    print(response_2) # temp
 
     assert DownloadYtMusicMp3Task.delay(user_id, link).get(timeout=5) == 'success'
     assert data_2['status'] == 'Downloading Success.'
@@ -32,7 +28,6 @@ def test_Get_audio_files(download_music, client):
     response = client.get(reverse('show-musics'))
     content = response.content.decode('utf-8')
     data = json.loads(content)
-    print(response) # temp
     assert 'id' in data[0]
     assert 'downloaded_music_files' in data[0]
     assert 'downloaded_url_video_link' in data[0]
