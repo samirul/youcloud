@@ -66,7 +66,7 @@ def get_music_id(get_user, download_music, client):
     content = response.content.decode('utf-8')
     data = json.loads(content)
     user = User.objects.get(id=user_id)
-    saved_data = YtMusicFiles.objects.create(created_by=user, downloaded_url_video_link=data['downloaded_url_video_link'],
-                                downloaded_music_title=data['downloaded_music_title'],
-                                downloaded_music_files=data['downloaded_music_files'])
+    saved_data = YtMusicFiles.objects.create(created_by=user, downloaded_url_video_link=data[0]['downloaded_url_video_link'],
+                                downloaded_music_title=data[0]['downloaded_music_title'],
+                                downloaded_music_files=data[0]['downloaded_music_files'])
     return saved_data
