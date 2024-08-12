@@ -24,7 +24,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres
+        image: postgres:latest
         env:
           POSTGRES_USER: ${{secrets.YOUCLOUD_DATABASE_USER}}
           POSTGRES_PASSWORD: ${{secrets.YOUCLOUD_DATABASE_PASSWORD}}
@@ -69,8 +69,6 @@ jobs:
           ls -a
           cp /home/runner/work/youcloud/youcloud/cipher.py /opt/hostedtoolcache/Python/3.11.4/x64/lib/python3.11/site-packages/pytube/
           ls -a 
-          cd /opt/hostedtoolcache/Python/3.11.4/x64/bin/python
-          ls -a
       
       - name: Automate test codes with pytest
         run: |
