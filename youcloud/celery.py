@@ -23,3 +23,4 @@ def debug_task(self):
 
 
 #celery -A youcloud.celery worker --pool=solo -l info
+#
