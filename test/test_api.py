@@ -28,9 +28,9 @@ def test_Get_audio_files(download_music, client):
     response = client.get(reverse('show-musics'))
     content = response.content.decode('utf-8')
     data = json.loads(content)
-    assert 'id' in data[0]
-    assert 'downloaded_music_files' in data[0]
-    assert 'downloaded_url_video_link' in data[0]
+    assert 'id' in data
+    assert 'downloaded_music_files' in data
+    assert 'downloaded_url_video_link' in data
     assert data[0]['downloaded_music_title'] == 'OFFLINE'
     assert response.status_code == 200
 
