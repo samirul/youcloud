@@ -68,7 +68,11 @@ jobs:
           cd /opt/hostedtoolcache/Python/3.11.4/x64/lib/python3.11/site-packages/pytube
           ls -a
           cp /home/runner/work/youcloud/youcloud/cipher.py /opt/hostedtoolcache/Python/3.11.4/x64/lib/python3.11/site-packages/pytube/
-          ls -a 
+          ls -a
+
+      - name: starting celery
+        run: /
+          celery -A youcloud.celery worker --pool=solo -l info
       
       - name: Automate test codes with pytest
         run: |
