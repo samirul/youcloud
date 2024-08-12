@@ -15,10 +15,12 @@ def test_GetURLDownloadFileViewsID(get_user, client):
     content = response.content.decode('utf-8')
     data = json.loads(content)
     download_id = data['download_id']
+    print(response) # temp
 
     response_2 = client.get(reverse("download-musics-id", args=[download_id]), content_type='application/json')
     content_2 = response_2.content.decode('utf-8')
     data_2 = json.loads(content_2)
+    print(response_2) # temp
 
     assert DownloadYtMusicMp3Task.delay(user_id, link).get(timeout=5) == 'success'
     assert data_2['status'] == 'Downloading Success.'
@@ -30,6 +32,7 @@ def test_Get_audio_files(download_music, client):
     response = client.get(reverse('show-musics'))
     content = response.content.decode('utf-8')
     data = json.loads(content)
+    print(response) # temp
     assert 'id' in data[0]
     assert 'downloaded_music_files' in data[0]
     assert 'downloaded_url_video_link' in data[0]
@@ -42,6 +45,7 @@ def test_Get_audio_files(download_music, client):
 def test_delete_audio_file(get_music_id, client):
     data_ = get_music_id
     response = client.get(f'/audio/delete-audio/{data_.id}/')
+    print(response) # temp
     assert response.status_code == 200
 
     
