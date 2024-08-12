@@ -26,12 +26,14 @@ def DownloadYtMusicMp3Task(self, user_id, link):
 
         user = User.objects.get(id=user_id)
 
-        try:
-            check_title_exist = YtMusicFiles.objects.select_related('created_by').filter(created_by=user, downloaded_music_title=title).defer('downloaded_music_files','created_at','updated_at')
-            if not check_title_exist:
-                YtMusicFiles.objects.create(created_by=user, downloaded_url_video_link=get_link, downloaded_music_title=title, downloaded_music_files=new_file)
-        except Exception as e:
-            print(f"Something is Wrong: {e}")
+        YtMusicFiles.objects.create(created_by=user, downloaded_url_video_link=get_link, downloaded_music_title=title, downloaded_music_files=new_file)
+
+        # try:
+        #     check_title_exist = YtMusicFiles.objects.select_related('created_by').filter(created_by=user, downloaded_music_title=title).defer('downloaded_music_files','created_at','updated_at')
+        #     if not check_title_exist:
+        #         YtMusicFiles.objects.create(created_by=user, downloaded_url_video_link=get_link, downloaded_music_title=title, downloaded_music_files=new_file)
+        # except Exception as e:
+        #     print(f"Something is Wrong: {e}")
 
         os.remove(downloaded_file)
 
