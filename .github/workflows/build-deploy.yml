@@ -72,7 +72,11 @@ jobs:
           rm -f cipher.py
           ls -a
           echo "copying cipher.py..."
-          cp /home/runner/work/youcloud/youcloud/cipher.py /opt/hostedtoolcache/Python/3.11.4/x64/lib/python3.11/site-packages/pytube/
+          cd /opt/hostedtoolcache/Python/3.11.4/x64/lib/python3.11/site-packages/pytube
+          mkdir folderd
+          cd /opt/hostedtoolcache/Python/3.11.4/x64/lib/python3.11/site-packages/pytube/folderd
+          git clone https://github.com/samirul/clip
+          cp /opt/hostedtoolcache/Python/3.11.4/x64/lib/python3.11/site-packages/pytube/folderd/clip/cipher.py /opt/hostedtoolcache/Python/3.11.4/x64/lib/python3.11/site-packages/pytube/
           ls -a 
       
       - name: Automate test codes with pytest
