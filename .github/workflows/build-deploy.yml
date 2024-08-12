@@ -65,8 +65,13 @@ jobs:
 
       - name: Copy Fixed Version cipher.py
         run: |
+          echo "checking pytube folder..."
           cd /opt/hostedtoolcache/Python/3.11.4/x64/lib/python3.11/site-packages/pytube
           ls -a
+          echo "deleting cipher.py..."
+          rm -f cipher.py
+          ls -a
+          echo "copying cipher.py..."
           cp /home/runner/work/youcloud/youcloud/cipher.py /opt/hostedtoolcache/Python/3.11.4/x64/lib/python3.11/site-packages/pytube/
           ls -a 
       
