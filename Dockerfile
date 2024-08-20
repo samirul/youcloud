@@ -8,7 +8,6 @@ WORKDIR /youcloud-app
 COPY requirements.txt /youcloud-app/
 COPY . /youcloud-app/
 COPY scripts.sh .
-COPY cipher.py /usr/local/lib/python3.12/site-packages/pytube/
 RUN apt update && \
     apt-get install -y postgresql-client && \
     pip install --no-cache-dir -r requirements.txt && \
@@ -19,7 +18,8 @@ RUN apt update && \
     chown -R youcloud-app-user:youcloud-app-user /vol && \
     chown -R youcloud-app-user:youcloud-app-user /vol && \
     chmod -R 755 /vol
-
+    
+COPY cipher.py /usr/local/lib/python3.12/site-packages/pytube/
 USER youcloud-app-user
 
 CMD ["./scripts.sh"]
