@@ -85,7 +85,7 @@ class DeleteAudioFiles(APIView):
             try:
                 for audio in audio_files:
                     if audio:
-                        path = os.path.join(f"media\youtube_files\{audio.downloaded_music_title}.mp3")
+                        path = os.path.join(f"youtube_files\{audio.downloaded_music_title}.mp3")
                         os.remove(path)
             except OSError:
                 pass

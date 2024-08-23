@@ -1,0 +1,7 @@
+Dear user, {{ user.username }},
+
+Thank you for registration, please click the link below to confirm you email address:
+
+[Click on confirm Email: {{ activate_url }}]
+
+Thank you, Youcloud Team.

@@ -16,7 +16,6 @@ RUN apt update && \
     mkdir -p /vol/web/static && \
     mkdir -p /vol/web/media && \
     chown -R youcloud-app-user:youcloud-app-user /vol && \
-    chown -R youcloud-app-user:youcloud-app-user /vol && \
     chmod -R 755 /vol
     
 COPY cipher.py /usr/local/lib/python3.12/site-packages/pytube/

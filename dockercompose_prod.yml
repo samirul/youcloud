@@ -34,6 +34,8 @@ services:
     command: celery -A youcloud worker --pool=solo -l info
     volumes:
       - .:/youcloud-app
+      - static:/vol/web/static 
+      - media:/vol/web/media 
     environment:
       - DEBUG=1
       - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
