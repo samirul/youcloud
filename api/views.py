@@ -4,8 +4,10 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.conf import settings
 from api.models import YtMusicFiles
 from api.tasks import DownloadYtMusicMp3Task
+from delete_data.content import delete_data_from_media_container
 from .serializers import GetAudioFilesSerializer, GetURLDownloadFileSerializer
 
 
@@ -85,13 +87,11 @@ class DeleteAudioFiles(APIView):
             try:
                 for audio in audio_files:
                     if audio:
-                        path = os.path.join(f"youtube_files\{audio.downloaded_music_title}.mp3")
-                        os.remove(path)
-            except OSError:
-                pass
-            audio_files.delete()
-
-                    
+                        path = f"youtube_files/{audio.downloaded_music_title}.mp3"
+                        delete_data_from_media_container(f"{settings.MEDIA_ROOT}/{path}")
+                        audio.delete()
+            except Exception as e:
+                print(e)    
             return Response(status=status.HTTP_200_OK)
         except Exception:
           return Response({'errors': 'No downloaded content.'}, status=status.HTTP_204_NO_CONTENT)  
