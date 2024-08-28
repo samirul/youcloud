@@ -19,7 +19,7 @@ jobs:
             key: ${{ secrets.VPS_PASSWORD }}
             script: |
                 mkdir youcloud
-                cp dockercompose_prod.yml /youcloud/
+                cp cp /home/runner/work/youcloud/youcloud/dockercompose_prod.yml /youcloud/
                 docker pull ${{ secrets.DOCKERHUB_USERNAME }}/youcloud:latest
                 cd youcloud
                 docker compose -f dockercompose_prod.yml up -d --build
