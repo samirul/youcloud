@@ -18,8 +18,8 @@ jobs:
             username: ${{ secrets.VPS_USER }}
             key: ${{ secrets.VPS_PASSWORD }}
             script: |
-                mkdir youcloud
-                cp cp /home/runner/work/youcloud/youcloud/dockercompose_prod.yml /home/ubuntu/youcloud/
-                docker pull ${{ secrets.DOCKERHUB_USERNAME }}/youcloud:latest
+                git clone git@github.com:samirul/youcloud.git
                 cd /home/ubuntu/youcloud/
+                cp /home/ubuntu/youcloud-env/.env /home/ubuntu/youcloud/
+                docker pull ${{ secrets.DOCKERHUB_USERNAME }}/youcloud:latest
                 docker compose -f dockercompose_prod.yml up -d --build
