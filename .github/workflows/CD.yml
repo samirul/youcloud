@@ -16,7 +16,7 @@ jobs:
         with:
             host: ${{ secrets.VPS_IP }}
             username: ${{ secrets.VPS_USER }}
-            password: ${{ secrets.VPS_PASSWORD }}
+            key: ${{ secrets.VPS_PASSWORD }}
             script: |
                 docker pull ${{ secrets.DOCKERHUB_USERNAME }}/youcloud:latest
                 docker rm -f youcloud-gunicorn-1 || true
