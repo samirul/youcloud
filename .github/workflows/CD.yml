@@ -1,0 +1,24 @@
+name: Deploying to vps
+
+on:
+  workflow_run:
+    workflows: ["Pushing to dockerhub"]
+    types:
+        - completed
+jobs:
+  build:
+    name: Deploying container to vps
+
+    runs-on: self-hosted
+    steps:
+      - name: Login to VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+            host: ${{ secrets.VPS_IP }}
+            username: ${{ secrets.VPS_USER }}
+            password: ${{ secrets.VPS_PASSWORD }}
+            script: |
+                sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/youcloud:latest
+                sudo docker rm -f youcloud-gunicorn-1 || true
+                cd youcloud
+                docker compose -f dockercompose_prod.yml -up -d --build

@@ -4,7 +4,6 @@ on: [push]
 
 jobs:
   build:
-    environment:
       name: Pushing youcloud project image to dockerhub
     env:
       DATABASE_NAME: ${{secrets.YOUCLOUD_DATABASE_NAME}}
