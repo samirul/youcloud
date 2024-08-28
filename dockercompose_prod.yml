@@ -28,9 +28,7 @@ services:
       - redis-cache-data:/data
 
   celery:
-    build: 
-      context: .
-      dockerfile: Dockerfile
+    image: samirul08/youcloud
     command: celery -A youcloud worker --pool=solo -l info
     volumes:
       - .:/youcloud-app
