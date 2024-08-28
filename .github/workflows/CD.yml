@@ -9,7 +9,7 @@ jobs:
   build:
     name: Deploying container to vps
 
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Login to VPS
         uses: appleboy/ssh-action@v1.0.3
@@ -18,7 +18,7 @@ jobs:
             username: ${{ secrets.VPS_USER }}
             password: ${{ secrets.VPS_PASSWORD }}
             script: |
-                sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/youcloud:latest
-                sudo docker rm -f youcloud-gunicorn-1 || true
+                docker pull ${{ secrets.DOCKERHUB_USERNAME }}/youcloud:latest
+                docker rm -f youcloud-gunicorn-1 || true
                 cd youcloud
                 docker compose -f dockercompose_prod.yml -up -d --build
