@@ -35,5 +35,5 @@ jobs:
             password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push docker image in dockerhub
         run: |
-          docker build -t samirul08/youcloud:latest
-          docker push samirul08/youcloud:latest
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/youcloud:latest .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/youcloud:latest
