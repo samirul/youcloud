@@ -22,5 +22,6 @@ jobs:
                 cd /home/ubuntu/youcloud/
                 git pull git@github.com:samirul/youcloud.git
                 cp /home/ubuntu/youcloud-env/.env /home/ubuntu/youcloud/
+                sudo docker rm -f youcloud-gunicorn-1 || true
                 docker pull ${{ secrets.DOCKERHUB_USERNAME }}/youcloud:latest
                 docker compose -f docker-compose_prod.yml up -d --build
