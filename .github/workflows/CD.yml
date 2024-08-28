@@ -18,7 +18,8 @@ jobs:
             username: ${{ secrets.VPS_USER }}
             key: ${{ secrets.VPS_PASSWORD }}
             script: |
+                mkdir youcloud
+                cp dockercompose_prod.yml /youcloud/
                 docker pull ${{ secrets.DOCKERHUB_USERNAME }}/youcloud:latest
-                docker rm -f youcloud-gunicorn-1 || true
                 cd youcloud
                 docker compose -f dockercompose_prod.yml up -d --build
