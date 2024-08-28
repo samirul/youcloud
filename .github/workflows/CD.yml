@@ -20,6 +20,7 @@ jobs:
             script: |
                 git clone git@github.com:samirul/youcloud.git
                 cd /home/ubuntu/youcloud/
+                git pull git@github.com:samirul/youcloud.git
                 cp /home/ubuntu/youcloud-env/.env /home/ubuntu/youcloud/
                 docker pull ${{ secrets.DOCKERHUB_USERNAME }}/youcloud:latest
                 docker compose -f docker-compose_prod.yml up -d --build
