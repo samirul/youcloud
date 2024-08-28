@@ -2,6 +2,7 @@ services:
   postgres:
       container_name: postgresql
       image: postgres:latest
+      restart: always
       environment:
         - POSTGRES_USER=${DATABASE_USER}
         - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
@@ -29,6 +30,7 @@ services:
 
   celery:
     image: samirul08/youcloud
+    restart: always
     command: celery -A youcloud worker --pool=solo -l info
     volumes:
       - .:/youcloud-app
@@ -46,6 +48,7 @@ services:
 
   gunicorn:
     image: samirul08/youcloud
+    restart: always
     ports:
       - 8000:8000
     env_file:
@@ -60,6 +63,7 @@ services:
   nginx:
     build:
       context: ./nginx
+    restart: always
     volumes:
       - static:/vol/web/static
       - media:/vol/web/media
