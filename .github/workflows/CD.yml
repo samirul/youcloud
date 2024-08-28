@@ -21,4 +21,4 @@ jobs:
                 docker pull ${{ secrets.DOCKERHUB_USERNAME }}/youcloud:latest
                 docker rm -f youcloud-gunicorn-1 || true
                 cd youcloud
-                docker compose -f dockercompose_prod.yml -up -d --build
+                docker compose -f dockercompose_prod.yml up -d --build
