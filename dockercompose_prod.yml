@@ -38,7 +38,7 @@ services:
       - media:/vol/web/media 
     environment:
       - DEBUG=1
-      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+      - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS}
       - CELERY_BROKER=redis://redis:6379/0
       - CELERY_BACKEND=redis://redis:6379/0
     depends_on:
@@ -46,7 +46,7 @@ services:
       - gunicorn
       - cache
 
-  gunicorn-youcloud-app:
+  gunicorn:
     image: samirul08/youcloud
     ports:
       - 8000:8000
