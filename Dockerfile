@@ -22,7 +22,7 @@ RUN python -m venv /py && \
     chmod -R 755 /vol && \
     chmod +x scripts.sh
 
-ENV PATH="/scripts:/py/bin:$PATH"
+ENV PATH="/py/bin:$PATH"
 
 USER youcloud-app-user
 
