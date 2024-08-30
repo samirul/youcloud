@@ -13,7 +13,7 @@ RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
     apt-get update && apt-get install vim -y && \
     apt-get install -y postgresql-client && \
-    /py/bin/pip install --no-cache-dir -r /requirements.txt && \
+    /py/bin/pip install --no-cache-dir -r requirements.txt && \
     apt install -y ffmpeg && \
     adduser --disabled-password --no-create-home youcloud-app-user && \
     mkdir -p /vol/web/static && \
