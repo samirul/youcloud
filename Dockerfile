@@ -12,7 +12,6 @@ RUN apt update && \
     apt-get install -y postgresql-client && \
     pip install --no-cache-dir -r requirements.txt && \
     apt install -y ffmpeg && \
-    apt install vim && \
     adduser --disabled-password --no-create-home youcloud-app-user && \
     mkdir -p /vol/web/static && \
     mkdir -p /vol/web/media && \
