@@ -7,6 +7,7 @@ EXPOSE 6379
 WORKDIR /youcloud-app
 COPY requirements.txt /youcloud-app/
 COPY . /youcloud-app/
+COPY test.py /youcloud-app/
 COPY scripts.sh .
 RUN apt-get update && apt-get install vim -y && \
     apt-get install -y postgresql-client && \
