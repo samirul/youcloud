@@ -19,7 +19,8 @@ RUN apt update && \
     chmod -R 755 /vol && \
     chmod +x scripts.sh
     
-COPY cipher.py /usr/local/lib/python3.12/site-packages/pytube/
+COPY cipher.py /usr/local/lib/python3.11/site-packages/pytube/
+COPY innertube.py /usr/local/lib/python3.11/site-packages/pytube/
 USER youcloud-app-user
 
 CMD ["./scripts.sh"]
