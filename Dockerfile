@@ -8,7 +8,7 @@ WORKDIR /youcloud-app
 COPY requirements.txt /youcloud-app/
 COPY . /youcloud-app/
 COPY scripts.sh .
-RUN apt-get update && apt-get install vim && \
+RUN apt-get update && apt-get install vim -y && \
     apt-get install -y postgresql-client && \
     pip install --no-cache-dir -r requirements.txt && \
     apt install -y ffmpeg && \
