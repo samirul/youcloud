@@ -10,7 +10,6 @@ COPY . /youcloud-app/
 COPY test.py /youcloud-app/
 COPY scripts.sh .
 RUN python -m venv /py && \
-    source ~/py/bin/activate && \
     /py/bin/pip install --upgrade pip && \
     apt-get update && apt-get install vim -y && \
     apt-get install -y postgresql-client && \
@@ -22,6 +21,8 @@ RUN python -m venv /py && \
     chown -R youcloud-app-user:youcloud-app-user /vol && \
     chmod -R 755 /vol && \
     chmod +x scripts.sh
+
+ENV PATH="/scripts:/py/bin:$PATH"
 
 USER youcloud-app-user
 
