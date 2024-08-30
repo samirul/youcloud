@@ -20,7 +20,7 @@ RUN python -m venv /py && \
     adduser --disabled-password --no-create-home youcloud-app-user && \
     mkdir -p /vol/web/static && \
     mkdir -p /vol/web/media && \
-    mkdir -p $PYTUBEFIX_CACHE_DIR && \
+    mkdir -p /youcloud-app/.pytubefix_cache && \
     chown -R youcloud-app-user:youcloud-app-user /vol && \
     chown -R youcloud-app-user:youcloud-app-user /youcloud-app/.pytubefix_cache && \
     chmod -R 755 /vol && \

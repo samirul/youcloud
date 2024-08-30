@@ -5,6 +5,7 @@ set -e
 whoami
 
 source /py/bin/activate
+export PYTUBEFIX_CACHE_DIR=/youcloud-app/.pytubefix_cache
 
 python manage.py collectstatic --noinput
 python manage.py migrate
