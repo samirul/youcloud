@@ -4,6 +4,8 @@ set -e
 
 whoami
 
+source /py/bin/activate
+
 python manage.py collectstatic --noinput
 python manage.py migrate
 

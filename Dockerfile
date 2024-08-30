@@ -1,6 +1,8 @@
 FROM python:3.12.3
 ENV PYTHONDONTWRITTEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
+ENV PYTUBEFIX_CACHE_DIR=/youcloud-app/.pytubefix_cache
+ENV PATH="/py/bin:$PATH"
 EXPOSE 8000
 EXPOSE 5432
 EXPOSE 6379
@@ -18,11 +20,11 @@ RUN python -m venv /py && \
     adduser --disabled-password --no-create-home youcloud-app-user && \
     mkdir -p /vol/web/static && \
     mkdir -p /vol/web/media && \
+    mkdir -p $PYTUBEFIX_CACHE_DIR && \
     chown -R youcloud-app-user:youcloud-app-user /vol && \
+    chown -R youcloud-app-user:youcloud-app-user /youcloud-app/.pytubefix_cache && \
     chmod -R 755 /vol && \
     chmod +x scripts.sh
-
-ENV PATH="/py/bin:$PATH"
 
 USER youcloud-app-user
 
