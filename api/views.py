@@ -22,7 +22,7 @@ class GetURLDownloadFileViews(APIView):
             Will send POST request from frontend reactjs
         '''
         user_id = request.user.id
-        serializer = GetURLDownloadFileSerializer(data=request.data, context={'user':request.user})
+        serializer = GetURLDownloadFileSerializer(data=request.data)
         if serializer.is_valid():
             try:
                 get_link = request.data.get('downloaded_url_video_link')
