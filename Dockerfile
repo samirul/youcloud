@@ -26,6 +26,8 @@ RUN python -m venv /py && \
     chmod -R 755 /vol && \
     chmod +x scripts.sh
 
+COPY innertube.py /py/lib/python3.12/site-packages/pytubefix/
+
 USER youcloud-app-user
 
 CMD ["./scripts.sh"]
