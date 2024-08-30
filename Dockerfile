@@ -9,7 +9,7 @@ COPY requirements.txt /youcloud-app/
 COPY . /youcloud-app/
 COPY scripts.sh .
 RUN apt update && \
-    apt-get install -y vim-tiny && \
+    apt-get install vim && \
     apt-get install -y postgresql-client && \
     pip install --no-cache-dir -r requirements.txt && \
     apt install -y ffmpeg && \
