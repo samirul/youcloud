@@ -31,7 +31,7 @@ services:
   celery:
     image: samirul08/youcloud
     restart: always
-    command: celery -A youcloud worker --pool=solo -l info
+    command: source pyy/bin/activate && pip install -r requirements.txt && celery -A youcloud worker --pool=solo -l info
     volumes:
       - .:/youcloud-app
       - static:/vol/web/static 
