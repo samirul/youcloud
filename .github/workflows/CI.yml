@@ -23,7 +23,7 @@ jobs:
       CELERY_BROKER_URL_LINK: ${{secrets.CELERY_BROKER_URL_LINK}}
       CELERY_TIMEZONE_PLACE: ${{secrets.CELERY_TIMEZONE_PLACE}}
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-23.04
     steps:
       - name: pulling codes from repository
         uses: actions/checkout@v4.1.6
