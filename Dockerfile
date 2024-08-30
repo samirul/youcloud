@@ -9,9 +9,12 @@ COPY requirements.txt /youcloud-app/
 COPY . /youcloud-app/
 COPY test.py /youcloud-app/
 COPY scripts.sh .
-RUN apt-get update && apt-get install vim -y && \
+RUN python -m venv /py && \
+    source ~/py/bin/activate && \
+    /py/bin/pip install --upgrade pip && \
+    apt-get update && apt-get install vim -y && \
     apt-get install -y postgresql-client && \
-    pip install --no-cache-dir -r requirements.txt && \
+    /py/bin/pip install --no-cache-dir -r /requirements.txt && \
     apt install -y ffmpeg && \
     adduser --disabled-password --no-create-home youcloud-app-user && \
     mkdir -p /vol/web/static && \
