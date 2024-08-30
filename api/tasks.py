@@ -15,7 +15,7 @@ def DownloadYtMusicMp3Task(self, user_id, link):
     try:
         current_task.update_state(state='PROGRESS', meta={'progress': 0})
         get_link = link
-        yt = YouTube(get_link, on_progress_callback = on_progress)
+        yt = YouTube(get_link, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
         video = yt.streams.get_highest_resolution()
         path_dir = "youtube_files"
         title_ = remove_special_characters(yt.title).split()
