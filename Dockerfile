@@ -1,4 +1,4 @@
-FROM python:3.11.4
+FROM python:3.12.3
 ENV PYTHONDONTWRITTEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 EXPOSE 8000
@@ -18,9 +18,7 @@ RUN apt update && \
     chown -R youcloud-app-user:youcloud-app-user /vol && \
     chmod -R 755 /vol && \
     chmod +x scripts.sh
-    
-COPY cipher.py /usr/local/lib/python3.11/site-packages/pytube/
-COPY innertube.py /usr/local/lib/python3.11/site-packages/pytube/
+
 USER youcloud-app-user
 
 CMD ["./scripts.sh"]

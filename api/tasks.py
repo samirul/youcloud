@@ -3,7 +3,8 @@ from django.core.files import File
 from django.core.files.storage import default_storage
 from celery import shared_task, current_task
 from pydub import AudioSegment
-from pytube import YouTube
+from pytubefix import YouTube
+from pytubefix.cli import on_progress
 from accounts.models import User
 from clean_text.clean_text_filter import remove_special_characters
 from .models import YtMusicFiles
@@ -14,7 +15,7 @@ def DownloadYtMusicMp3Task(self, user_id, link):
     try:
         current_task.update_state(state='PROGRESS', meta={'progress': 0})
         get_link = link
-        yt = YouTube(get_link)
+        yt = YouTube(get_link, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
         video = yt.streams.filter(only_audio=True).first()
         path_dir = "youtube_files"
         title_ = remove_special_characters(yt.title).split()
